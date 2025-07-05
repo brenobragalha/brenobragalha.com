@@ -1,0 +1,21 @@
+---
+// Props: tweetUrl (string)
+const { tweetUrl } = Astro.props;
+---
+
+<div style="display: flex; justify-content: center; margin: 1rem 0;">
+    <blockquote class="twitter-tweet" data-theme="dark">
+        <a href={tweetUrl}></a>
+    </blockquote>
+</div>
+
+<script is:inline>
+    if (typeof window !== "undefined" && !window.twttr) {
+        const script = document.createElement("script");
+        script.src = "https://platform.twitter.com/widgets.js";
+        script.async = true;
+        document.body.appendChild(script);
+    } else if (window.twttr && window.twttr.widgets) {
+        window.twttr.widgets.load();
+    }
+</script>

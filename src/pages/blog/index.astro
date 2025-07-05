@@ -1,0 +1,98 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import Header from "../../components/Header.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+
+const posts = (await getCollection("blog")).sort((a, b) => {
+    const dateDiff = b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+    if (dateDiff !== 0) return dateDiff;
+    // Secondary sort: by title (A-Z)
+    return a.data.title.localeCompare(b.data.title);
+});
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead
+            title={`${SITE_TITLE} | Thoughts`}
+            description={SITE_DESCRIPTION}
+        />
+    </head>
+    <body>
+        <div class="container">
+            <Header />
+            <main>
+                <section>
+                    <h1>Thoughts</h1>
+                    <ul>
+                        {
+                            posts.map((post) => (
+                                <li>
+                                    <a
+                                        href={`/blog/${post.id}/`}
+                                        class="post-link"
+                                    >
+                                        <div class="post-row">
+                                            <span class="title">
+                                                {post.data.title}
+                                            </span>
+                                            <span class="dots" />
+                                            <span class="date">
+                                                <FormattedDate
+                                                    date={post.data.pubDate}
+                                                />
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </section>
+            </main>
+        </div>
+    </body>
+</html>
+<style>
+    ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        list-style-type: none;
+    }
+    ul li a {
+        display: block;
+        text-decoration: none;
+    }
+    .post-row {
+        display: flex;
+        /* align-items: center; */
+        justify-content: flex-start;
+        gap: 0.5em;
+    }
+    .dots {
+        flex: 1 1 auto;
+        border-bottom: 1px dotted var(--neutral-800);
+        height: 0.9em;
+    }
+    .title {
+        line-height: 1;
+        color: var(--neutral-950);
+    }
+    .date {
+        line-height: 1;
+        color: var(--neutral-400);
+    }
+    .date {
+        white-space: nowrap;
+    }
+    ul li a:hover .title,
+    ul li a:hover .date {
+        color: var(--accent);
+    }
+</style>
