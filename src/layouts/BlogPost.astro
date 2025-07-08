@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE } from "../consts";
+import Header from "../components/Header.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+
+type Props = CollectionEntry<"blog">["data"];
+
+const { title, description, pubDate, heroImage } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <BaseHead
+            title={`${SITE_TITLE} | ${title}`}
+            description={description}
+            image={heroImage}
+        />
+    </head>
+    <body>
+        <div class="container">
+            <Header />
+            <main>
+                <article>
+                    <div class="title">
+                        <h1>{title}</h1>
+                        <div class="date">
+                            @brenobragalha | <FormattedDate date={pubDate} />
+                        </div>
+                        <hr />
+                    </div>
+                    <slot />
+                </article>
+            </main>
+        </div>
+    </body>
+</html>
+<style>
+    .title {
+        margin-bottom: 1em;
+    }
+    .title h1 {
+        margin-bottom: 0.1em;
+    }
+    .date {
+        font-size: 0.889rem;
+        color: var(--neutral-400);
+    }
+</style>

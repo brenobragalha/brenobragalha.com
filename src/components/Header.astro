@@ -1,0 +1,51 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+---
+
+<header>
+    <nav>
+        <div class="home">
+            <a href="/"><img src="/favicon.png" alt="Home" /></a>
+        </div>
+        <div class="internal-links">
+            <HeaderLink href="/blog">Thoughts</HeaderLink>
+            <a href="https://github.com/brenobragalha" target="_blank">GitHub</a
+            >
+            <a href="https://x.com/brenobragalha" target="_blank">X(Twitter)</a>
+        </div>
+    </nav>
+</header>
+<style>
+    header {
+        padding: 1em 0;
+    }
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    a {
+        text-decoration: none;
+        color: var(--neutral-950);
+    }
+    a:hover {
+        color: var(--accent);
+    }
+    .home a img {
+        width: 48px;
+        height: 48px;
+        max-width: none;
+        margin: 0;
+        border-radius: 0px;
+    }
+    .internal-links {
+        display: flex;
+        gap: 1em;
+    }
+    @media (max-width: 425px) {
+        .internal-links {
+            font-size: 14px;
+            gap: 0.8em;
+        }
+    }
+</style>
