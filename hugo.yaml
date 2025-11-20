@@ -1,0 +1,130 @@
+module:
+  imports:
+    - path: github.com/imfing/hextra
+
+baseURL: https://brenobragalha.com/
+title: Breno Bragalha
+languageCode: en-us
+
+defaultContentLanguage: en
+languages:
+  en:
+    languageName: English
+    weight: 1
+    title: Breno Bragalha
+
+menu:
+  main:
+    - name: Blog
+      pageRef: /blog
+      weight: 1
+    - name: About
+      pageRef: /about
+      weight: 2
+    - name: Search
+      weight: 3
+      params:
+        type: search
+    - name: GitHub
+      weight: 4
+      url: "https://github.com/brenobragalha"
+      params:
+        icon: github
+    - name: Twitter
+      weight: 5
+      url: "https://x.com/brenobragalha"
+      params:
+        icon: x-twitter
+
+params:
+  navbar:
+    width: wide
+    displayTitle: true
+    displayLogo: false
+    logo:
+      path: logo.svg
+      dark: logo-dark.svg
+      link: /
+      width: 32
+      height: 32
+
+  footer:
+    enable: true
+    displayCopyright: true
+    displayPoweredBy: false
+    width: normal
+
+  theme:
+    displayToggle: true
+
+  search:
+    enable: true
+    type: flexsearch
+    flexsearch:
+      index: content
+      tokenize: forward
+
+  images:
+    - "og-image.jpg"
+
+  page:
+    width: normal
+
+  blog:
+    list:
+      displayTags: true
+      sortBy: date
+      sortOrder: desc
+      pagerSize: 10
+
+  toc:
+    displayTags: true
+
+  highlight:
+    copy:
+      enable: true
+      display: hover
+
+  banner:
+    key: "announcement-xxx"
+    message: |
+      🎉 Welcome! Stay tuned for more details.
+
+  editURL:
+    enable: false
+    base: "https://github.com/brenobragalha/brenobragalha.com"
+
+  externalLinkDecoration: true
+
+  displayUpdatedDate: true
+  dateFormat: "January 2, 2006"
+
+  author:
+    name: Breno Bragalha
+    email: official.brenobragalha@gmail.com
+
+  description: Welcome! Stay tuned for more details.
+
+enableGitInfo: true
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+hasCJKLanguage: true
+
+markup:
+  highlight:
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      passthrough:
+        delimiters:
+          block: [['\[', '\]'], ["$$", "$$"]]
+          inline: [['\(', '\)']]
+        enable: true
+
+outputs:
+  home: [html, llms]
+  page: [html]
+  section: [html, rss]
