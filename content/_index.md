@@ -1,8 +1,19 @@
 ---
-title: Home
-layout: hextra-home
+title: About
+layout: single
+aliases: '/about'
 ---
 
-{{< hextra/hero-headline >}}
-  Home
-{{< /hextra/hero-headline >}}
+I'm a Software Engineer currently building solutions for the Fintech market. The Java ecosystem is my go-to approach, but I'm always coding with other languages and paradigms in my spare time.
+
+I also love building my own solutions, messing with on-premises setups, and testing questionable tools and approaches just for the fun of it.
+
+I've been modifying game files and taking apart hardware since I was 12 to see how things worked inside. That early curiosity eventually led to a formal education in Systems Analysis and a specialization in Full-stack Development.
+
+Gain technical insights and my personal thoughts through my <a href="https://brenobragalha.com/blog">blog</a>. You can also find me on <a href="https://github.com/brenobragalha">GitHub</a>, <a href="https://twitter.com/brenobragalha">X/Twitter</a>, and <a href="https://mastodon.social/@brenobragalha">Mastodon</a>.
+
+<h2>About this site</h2>
+
+This site is built with <a href="https://gohugo.io/">Hugo</a> and <a href="https://imfing.github.io/hextra/">Hextra</a> theme.
+
+And yes, I know, I should have used a static site generator from the start.
