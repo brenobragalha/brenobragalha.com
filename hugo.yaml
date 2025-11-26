@@ -107,6 +107,7 @@ enableGitInfo: true
 enableInlineShortcodes: true
 enableRobotsTXT: true
 hasCJKLanguage: true
+buildFuture: true
 
 markup:
   highlight:
