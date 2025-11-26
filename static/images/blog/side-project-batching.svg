@@ -1,0 +1,49 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Side Project Energy Batching</title>
+  <desc id="desc">Timeline showing seasons, maker slots, fuel audit, narrative slices, and public retro.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#041423" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <style>
+      text { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; fill: #ecfeff; }
+      .label { font-size: 30px; font-weight: 600; }
+      .detail { font-size: 22px; opacity: 0.85; }
+    </style>
+  </defs>
+  <rect width="1200" height="600" rx="40" fill="url(#bg)" />
+  <g transform="translate(80 80)">
+    <rect width="980" height="420" rx="36" fill="rgba(15,118,110,0.5)" />
+    <text class="label" x="40" y="70">Season Cadence</text>
+    <line x1="40" y1="110" x2="920" y2="110" stroke="#99f6e4" stroke-width="8" stroke-linecap="round" />
+    <circle cx="200" cy="110" r="16" fill="#5eead4" />
+    <circle cx="440" cy="110" r="16" fill="#5eead4" />
+    <circle cx="680" cy="110" r="16" fill="#5eead4" />
+    <circle cx="920" cy="110" r="16" fill="#5eead4" />
+    <text class="detail" x="160" y="150">Season 1</text>
+    <text class="detail" x="400" y="150">Season 2</text>
+    <text class="detail" x="640" y="150">Season 3</text>
+    <text class="detail" x="880" y="150">Season 4</text>
+    <g transform="translate(40 190)">
+      <rect width="280" height="120" rx="24" fill="rgba(20,184,166,0.25)" stroke="#5eead4" stroke-width="2" />
+      <text class="label" x="20" y="50">Maker Slots</text>
+      <text class="detail" x="20" y="90">120 min explore + 180 min build</text>
+    </g>
+    <g transform="translate(360 190)">
+      <rect width="280" height="120" rx="24" fill="rgba(245,158,11,0.2)" stroke="#fcd34d" stroke-width="2" />
+      <text class="label" x="20" y="50">Fuel Audit</text>
+      <text class="detail" x="20" y="90">Leaks · Sparks · Resets</text>
+    </g>
+    <g transform="translate(680 190)">
+      <rect width="280" height="120" rx="24" fill="rgba(59,130,246,0.2)" stroke="#93c5fd" stroke-width="2" />
+      <text class="label" x="20" y="50">Narrative Slices</text>
+      <text class="detail" x="20" y="90">Ship updates + share</text>
+    </g>
+    <g transform="translate(40 340)">
+      <rect width="920" height="120" rx="28" fill="rgba(6,182,212,0.15)" stroke="#67e8f9" stroke-width="2" />
+      <text class="label" x="20" y="60">Public Retro</text>
+      <text class="detail" x="20" y="100">What shipped · What paused · What’s next</text>
+    </g>
+  </g>
+</svg>

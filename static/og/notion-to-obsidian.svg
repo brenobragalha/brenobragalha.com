@@ -1,0 +1,40 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Porting My Knowledge System from Notion to Obsidian</title>
+  <desc id="desc">Split layout showing Notion blocks transitioning into an Obsidian graph.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <style>
+      text { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; fill: #f1f5f9; }
+      .title { font-size: 60px; font-weight: 600; }
+      .subtitle { font-size: 32px; opacity: 0.85; }
+    </style>
+  </defs>
+  <rect width="1200" height="630" rx="32" fill="url(#bg)" />
+  <g transform="translate(80 140)">
+    <text class="title" y="0">From Notion Blocks to Obsidian Graphs</text>
+    <text class="subtitle" y="70">Normalize exports · Design link taxonomies · Automate enrichment</text>
+  </g>
+  <g transform="translate(80 300)">
+    <rect width="460" height="220" rx="24" fill="#f8fafc" opacity="0.08" />
+    <g transform="translate(40 40)">
+      <rect width="160" height="40" rx="8" fill="#f8fafc" opacity="0.3" />
+      <rect y="60" width="240" height="30" rx="6" fill="#f8fafc" opacity="0.15" />
+      <rect y="110" width="200" height="30" rx="6" fill="#f8fafc" opacity="0.15" />
+      <rect y="160" width="260" height="30" rx="6" fill="#f8fafc" opacity="0.15" />
+    </g>
+  </g>
+  <g transform="translate(620 260)">
+    <circle cx="180" cy="70" r="12" fill="#38bdf8" />
+    <circle cx="260" cy="140" r="10" fill="#c084fc" />
+    <circle cx="120" cy="160" r="14" fill="#22d3ee" />
+    <circle cx="220" cy="40" r="9" fill="#fbbf24" />
+    <circle cx="300" cy="90" r="11" fill="#f472b6" />
+    <circle cx="80" cy="80" r="10" fill="#a5b4fc" />
+    <circle cx="150" cy="220" r="9" fill="#f87171" />
+    <path d="M80 80 L180 70 L260 140 L150 220 L120 160 Z" stroke="#38bdf8" stroke-width="4" fill="none" opacity="0.6" />
+    <path d="M220 40 L300 90" stroke="#f472b6" stroke-width="4" opacity="0.6" />
+  </g>
+</svg>

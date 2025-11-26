@@ -1,0 +1,54 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Notion to Obsidian Pipeline</title>
+  <desc id="desc">Flow showing export normalization, taxonomy design, enrichment, and canvas synthesis.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="100%" stop-color="#312e81" />
+    </linearGradient>
+    <style>
+      text { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; fill: #e0e7ff; }
+      .label { font-size: 32px; font-weight: 600; }
+      .detail { font-size: 22px; opacity: 0.85; }
+    </style>
+  </defs>
+  <rect width="1200" height="600" rx="40" fill="url(#bg)" />
+  <g transform="translate(80 80)">
+    <rect width="980" height="420" rx="36" fill="rgba(15,23,42,0.7)" />
+    <g transform="translate(40 40)">
+      <rect width="220" height="280" rx="26" fill="rgba(129,140,248,0.2)" stroke="#a5b4fc" stroke-width="2" />
+      <text class="label" x="24" y="60">Export</text>
+      <text class="detail" x="24" y="110">Markdown + CSV</text>
+      <text class="detail" x="24" y="145">Flatten folders</text>
+      <text class="detail" x="24" y="180">Callout cleanup</text>
+    </g>
+    <g transform="translate(300 40)">
+      <rect width="220" height="280" rx="26" fill="rgba(59,130,246,0.2)" stroke="#60a5fa" stroke-width="2" />
+      <text class="label" x="24" y="60">Taxonomy</text>
+      <text class="detail" x="24" y="110">Wiki links</text>
+      <text class="detail" x="24" y="145">Hashtag rules</text>
+    </g>
+    <g transform="translate(560 40)">
+      <rect width="220" height="280" rx="26" fill="rgba(14,165,233,0.2)" stroke="#38bdf8" stroke-width="2" />
+      <text class="label" x="24" y="60">Automation</text>
+      <text class="detail" x="24" y="110">Random resurfacer</text>
+      <text class="detail" x="24" y="145">Orphan query</text>
+      <text class="detail" x="24" y="180">Last touched stamp</text>
+    </g>
+    <g transform="translate(820 40)">
+      <rect width="160" height="280" rx="26" fill="rgba(245,158,11,0.2)" stroke="#fbbf24" stroke-width="2" />
+      <text class="label" x="24" y="60">Canvas</text>
+      <text class="detail" x="24" y="110">Drag nodes</text>
+      <text class="detail" x="24" y="145">Link insights</text>
+    </g>
+    <path d="M260 180 L300 180" stroke="#e0e7ff" stroke-width="8" marker-end="url(#arrow)" />
+    <path d="M520 180 L560 180" stroke="#e0e7ff" stroke-width="8" marker-end="url(#arrow)" />
+    <path d="M780 180 L820 180" stroke="#e0e7ff" stroke-width="8" marker-end="url(#arrow)" />
+    <path d="M900 340 Q 520 420 160 320" stroke="#38bdf8" stroke-width="8" fill="none" marker-end="url(#arrow)" />
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e0e7ff" />
+    </marker>
+  </defs>
+</svg>
