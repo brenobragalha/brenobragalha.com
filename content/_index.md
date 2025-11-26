@@ -4,9 +4,7 @@ layout: single
 aliases: '/about'
 ---
 
-I'm a Software Engineer currently building solutions for the Fintech market. The Java ecosystem is my go-to approach, but I'm always coding with other languages and paradigms in my spare time.
-
-I also love building my own solutions, messing with on-premises setups, and testing questionable tools and approaches just for the fun of it.
+I'm a Software Engineer currently building solutions for the Fintech market mainly with the Java ecosystem. I also love creating my own stuff using all kinds of languages and paradigms, messing with on-prem setups, and testing questionable tools and approaches just for the fun of it.
 
 I've been modifying game files and taking apart hardware since I was 12 to see how things worked inside. That early curiosity eventually led to a formal education in Systems Analysis and a specialization in Full-stack Development.
 
@@ -16,4 +14,4 @@ Gain technical insights and my personal thoughts through my <a href="https://bre
 
 This site is built with <a href="https://gohugo.io/">Hugo</a> and <a href="https://imfing.github.io/hextra/">Hextra</a> theme.
 
-And yes, I know, I should have used a static site generator from the start.
+And yes, I know, I should've used a static site generator from the start.
