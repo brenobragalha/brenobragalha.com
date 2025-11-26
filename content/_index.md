@@ -4,11 +4,11 @@ layout: single
 aliases: '/about'
 ---
 
-I'm a Software Engineer currently building solutions for the Fintech market mainly with the Java ecosystem. I also love creating my own stuff using all kinds of languages and paradigms, messing with on-prem setups, and testing questionable tools and approaches just for the fun of it.
+I am a Software Engineer currently building solutions for the Fintech market mainly with the Java ecosystem. I also really enjoy creating my own stuff using all kinds of languages and paradigms, and I get a kick out of messing with on-prem setups and testing questionable tools and approaches just for the fun of it.
 
-I've been modifying game files and taking apart hardware since I was 12 to see how things worked inside. That early curiosity eventually led to a formal education in Systems Analysis and a specialization in Full-stack Development.
+I've been modifying game files and taking apart hardware since I was twelve to see how things worked inside. That early curiosity eventually led to a formal education in Systems Analysis and a specialization in Full-stack Development.
 
-Gain technical insights and my personal thoughts through my <a href="https://brenobragalha.com/blog">Blog</a>. You can also find me on <a href="https://github.com/brenobragalha">GitHub</a> and <a href="https://twitter.com/brenobragalha">X/Twitter</a>.
+Get technical insights and personal thoughts on my <a href="https://brenobragalha.com/blog">Blog</a>. You can also find me on <a href="https://github.com/brenobragalha">GitHub</a> and <a href="https://twitter.com/brenobragalha">X/Twitter</a>.
 
 <h2>About this Website</h2>
 
