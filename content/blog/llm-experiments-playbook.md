@@ -8,7 +8,7 @@ tags:
   - workflow
   - experiments
 images:
-  - "/og/llm-experiments-playbook.svg"
+  - "/og/HelloWorld.png"
 ---
 
 I have been shipping tiny LLM-powered tools for friends, clients, and my own curiosity projects. After a dozen iterations, a loose routine emerged. This post captures the checklist so I can hand it to future-me (or you) when a new experiment idea lands in the notes app.
