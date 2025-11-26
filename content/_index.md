@@ -1,5 +1,5 @@
 ---
-title: About
+title: About Me
 layout: single
 aliases: '/about'
 ---
@@ -8,10 +8,10 @@ I'm a Software Engineer currently building solutions for the Fintech market main
 
 I've been modifying game files and taking apart hardware since I was 12 to see how things worked inside. That early curiosity eventually led to a formal education in Systems Analysis and a specialization in Full-stack Development.
 
-Gain technical insights and my personal thoughts through my <a href="https://brenobragalha.com/blog">blog</a>. You can also find me on <a href="https://github.com/brenobragalha">GitHub</a>, <a href="https://twitter.com/brenobragalha">X/Twitter</a>, and <a href="https://mastodon.social/@brenobragalha">Mastodon</a>.
+Gain technical insights and my personal thoughts through my <a href="https://brenobragalha.com/blog">Blog</a>. You can also find me on <a href="https://github.com/brenobragalha">GitHub</a> and <a href="https://twitter.com/brenobragalha">X/Twitter</a>.
 
-<h2>About this site</h2>
+<h2>About this Website</h2>
 
-This site is built with <a href="https://gohugo.io/">Hugo</a> and <a href="https://imfing.github.io/hextra/">Hextra</a> theme.
+This website is built with <a href="https://gohugo.io/">Hugo</a> and <a href="https://imfing.github.io/hextra/">Hextra</a> theme. You can check the source code <a href="https://github.com/brenobragalha/brenobragalha.com">here</a>.
 
 And yes, I know, I should've used a static site generator from the start.
