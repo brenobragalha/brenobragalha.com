@@ -1,0 +1,12 @@
+{{define "essay"}}{{template "base" .}}{{end}}
+{{define "content"}}
+  <p class="back"><a href="/">Home</a> / <a href="/writing/">Writing</a></p>
+
+  <article>
+    <h1 class="page-title">{{.Essay.Title}}</h1>
+    <p class="date"><time datetime="{{.Essay.Date.Format "2006-01-02"}}">{{.Essay.Date.Format "2 January 2006"}}</time></p>
+    <div class="essay-body">
+      {{.Essay.BodyHTML}}
+    </div>
+  </article>
+{{end}}

@@ -1,0 +1,19 @@
+{{define "archive"}}{{template "base" .}}{{end}}
+{{define "content"}}
+  <p class="back"><a href="/">Home</a></p>
+
+  <h1 class="page-title">Writing</h1>
+
+  {{if .Essays}}
+  <ul class="writing-list">
+    {{range .Essays}}
+    <li>
+      <a href="/writing/{{.Slug}}/">{{.Title}}</a>
+      <time datetime="{{.Date.Format "2006-01-02"}}">{{.Date.Format "2 January 2006"}}</time>
+    </li>
+    {{end}}
+  </ul>
+  {{else}}
+  <p>Nothing published yet.</p>
+  {{end}}
+{{end}}

@@ -1,0 +1,61 @@
+{{define "home"}}{{template "base" .}}{{end}}
+{{define "content"}}
+  <h1 class="name">{{.Config.Name}}</h1>
+
+  <div class="lede">
+    {{.Config.Lede}}
+  </div>
+
+  <section class="section">
+    <h2>Practice</h2>
+    {{.Config.Practice}}
+  </section>
+
+  <section class="section">
+    <h2>Selected work</h2>
+    {{if .Config.SelectedWork}}
+    <ul class="work-list">
+      {{range .Config.SelectedWork}}
+      <li>
+        <p class="work-title">{{if .URL}}<a href="{{.URL}}">{{.Title}}</a>{{else}}{{.Title}}{{end}}</p>
+        {{.Body}}
+      </li>
+      {{end}}
+    </ul>
+    {{else}}
+    <p>Projects forthcoming.</p>
+    {{end}}
+  </section>
+
+  <section class="section">
+    <h2>Writing</h2>
+    {{if .Essays}}
+    <ul class="writing-list">
+      {{range .Essays}}
+      <li>
+        <a href="/writing/{{.Slug}}/">{{.Title}}</a>
+        <time datetime="{{.Date.Format "2006-01-02"}}">{{.Date.Format "2 January 2006"}}</time>
+      </li>
+      {{end}}
+    </ul>
+    {{else}}
+    <p>Nothing published yet.</p>
+    {{end}}
+    <p class="all-writing"><a href="/writing/">All writing&nbsp;→</a></p>
+  </section>
+
+  <section class="section">
+    <h2>Contact</h2>
+    <p class="contact">
+      <a href="{{.Config.Contact.GitHub}}">GitHub</a>
+      <span class="sep">·</span>
+      <a href="{{.Config.Contact.X}}">X</a>
+      <span class="sep">·</span>
+      <a href="{{.Config.Contact.LinkedIn}}">LinkedIn</a>
+      <span class="sep">·</span>
+      <a href="mailto:{{.Config.Contact.Email}}">Email</a>
+      <span class="sep">·</span>
+      <a href="/feed.xml">RSS</a>
+    </p>
+  </section>
+{{end}}

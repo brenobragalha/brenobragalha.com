@@ -1,0 +1,21 @@
+base_url: https://brenobragalha.com
+name: Breno Bragalha
+description: Independent software engineer. Here I write about software and whatever else is on my mind.
+lede: |
+  Independent software engineer. Here I write about software and whatever
+  else is on my mind. For work inquiries: hello@brenobragalha.com.
+practice: |
+  I build software for a living — mostly backends and the systems behind
+  the product, often in Go, though that isn't the whole picture. This site
+  is also where you can see some of what I'm doing.
+selected_work:
+  - title: This site
+    body: |
+      Personal site and a small Go static site generator. No client
+      JavaScript — just Markdown in and HTML out.
+    url: https://github.com/brenobragalha/brenobragalha.com
+contact:
+  github: https://github.com/brenobragalha
+  x: https://x.com/brenobragalha
+  linkedin: https://www.linkedin.com/in/breno-bragalha/
+  email: hello@brenobragalha.com
