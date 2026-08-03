@@ -1,0 +1,17 @@
+base_url: https://example.com
+name: Test Site
+description: A fixture site for generator tests.
+lede: |
+  Fixture lede with an email@example.com for autolink coverage.
+practice: |
+  Fixture practice copy.
+selected_work:
+  - title: Example work
+    body: |
+      A short body.
+    url: https://example.com/work
+contact:
+  github: https://github.com/example
+  x: https://x.com/example
+  linkedin: https://www.linkedin.com/in/example/
+  email: hello@example.com

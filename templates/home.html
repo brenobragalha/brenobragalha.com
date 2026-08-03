@@ -30,7 +30,9 @@
   <section class="section">
     <h2>Writing</h2>
     {{template "writing-list" .Essays}}
+    {{if .Essays}}
     <p class="all-writing"><a href="/writing/">All writing&nbsp;→</a></p>
+    {{end}}
   </section>
 
   <section class="section">

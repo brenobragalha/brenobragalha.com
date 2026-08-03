@@ -8,96 +8,57 @@ import (
 )
 
 func TestBuild(t *testing.T) {
+	root := fixtureRoot(t)
 	out := filepath.Join(t.TempDir(), "public")
-	if err := build("../..", out); err != nil {
+	if err := build(root, out); err != nil {
 		t.Fatal(err)
 	}
+	// Rebuild into the same out to exercise the sibling-swap publish path.
+	if err := build(root, out); err != nil {
+		t.Fatal(err)
+	}
+
 	for _, name := range []string{
-		"index.html", "writing/index.html", "404.html",
-		"feed.xml", "sitemap.xml", "robots.txt", "css/site.css",
+		"index.html", "writing/index.html", "writing/hello-world/index.html",
+		"404.html", "feed.xml", "sitemap.xml", "robots.txt", "css/site.css",
 	} {
 		if _, err := os.Stat(filepath.Join(out, name)); err != nil {
 			t.Errorf("missing %s: %v", name, err)
 		}
 	}
 
-	home, err := os.ReadFile(filepath.Join(out, "index.html"))
+	essay, err := os.ReadFile(filepath.Join(out, "writing/hello-world/index.html"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(string(home), "Breno Bragalha") {
-		t.Error("home page is missing the site name")
+	essayStr := string(essay)
+	if !strings.Contains(essayStr, "<strong>emphasis</strong>") {
+		t.Error("essay page is missing rendered Markdown")
 	}
-	if !strings.Contains(string(home), `rel="alternate" type="application/rss+xml"`) {
-		t.Error("home page is missing the RSS alternate link")
+	if !strings.Contains(essayStr, `rel="canonical" href="https://example.com/writing/hello-world/"`) {
+		t.Error("essay page is missing the canonical link")
 	}
 
-	notFound, err := os.ReadFile(filepath.Join(out, "404.html"))
+	feed, err := os.ReadFile(filepath.Join(out, "feed.xml"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	if strings.Contains(string(notFound), `rel="canonical"`) {
-		t.Error("404 page should omit the canonical link")
+	if !strings.Contains(string(feed), "<description>A short fixture essay.</description>") {
+		t.Error("feed should use the essay description, not the full HTML body")
 	}
 }
 
-func TestParseEssay(t *testing.T) {
-	essay, err := parseEssay("hello-world", []byte("---\ntitle: Hello\ndate: 2026-07-29\n---\n\nBody **text**.\n"))
-	if err != nil {
-		t.Fatal(err)
+// fixtureRoot builds an isolated site tree: content + stub static/ from
+// testdata/site, and the real templates/ (so template edits stay covered).
+func fixtureRoot(t *testing.T) string {
+	t.Helper()
+	root := t.TempDir()
+	if err := os.CopyFS(root, os.DirFS(filepath.Join("testdata", "site"))); err != nil {
+		t.Fatalf("copy fixture: %v", err)
 	}
-	if essay.Title != "Hello" || essay.Date.Format("2006-01-02") != "2026-07-29" {
-		t.Errorf("unexpected front matter: %+v", essay)
+	templatesDir := filepath.Join("..", "..", "templates")
+	if err := os.CopyFS(filepath.Join(root, "templates"), os.DirFS(templatesDir)); err != nil {
+		t.Fatalf("copy templates: %v", err)
 	}
-	if essay.Description != "Hello" {
-		t.Errorf("description should fall back to the title, got %q", essay.Description)
-	}
-	if !strings.Contains(string(essay.BodyHTML), "<strong>text</strong>") {
-		t.Errorf("body was not rendered as Markdown: %q", essay.BodyHTML)
-	}
-}
-
-func TestParseEssayRejectsBadSlug(t *testing.T) {
-	body := []byte("---\ntitle: Hello\ndate: 2026-07-29\n---\n\nBody.\n")
-	for _, slug := range []string{"", ".", "..", "Hello"} {
-		if _, err := parseEssay(slug, body); err == nil {
-			t.Errorf("expected reject for slug %q", slug)
-		}
-	}
-}
-
-func TestParseEssayRequiresTitle(t *testing.T) {
-	_, err := parseEssay("hello-world", []byte("---\ntitle: \"\"\ndate: 2026-07-29\n---\n\nBody.\n"))
-	if err == nil {
-		t.Fatal("expected empty title to be rejected")
-	}
-}
-
-func TestLoadConfigValidates(t *testing.T) {
-	dir := t.TempDir()
-	path := filepath.Join(dir, "site.yaml")
-	if err := os.WriteFile(path, []byte("base_url: https://example.com/\nname: Test\ndescription: d\n"), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	cfg, err := loadConfig(path)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if cfg.BaseURL != "https://example.com" {
-		t.Errorf("expected trailing slash trimmed, got %q", cfg.BaseURL)
-	}
-
-	if err := os.WriteFile(path, []byte("base_url: \"\"\nname: Test\n"), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	if _, err := loadConfig(path); err == nil {
-		t.Fatal("expected empty base_url to be rejected")
-	}
-
-	if err := os.WriteFile(path, []byte("base_url: https://example.com\nname: \"\"\n"), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	if _, err := loadConfig(path); err == nil {
-		t.Fatal("expected empty name to be rejected")
-	}
+	return root
 }

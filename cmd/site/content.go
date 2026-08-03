@@ -16,7 +16,6 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Lede, Practice, and WorkItem.Body are Markdown rendered at load time.
 type Config struct {
 	BaseURL      string
 	Name         string
@@ -48,7 +47,6 @@ type Essay struct {
 	BodyHTML    template.HTML
 }
 
-// slugPattern enforces lowercase kebab-case (hello-world).
 var slugPattern = regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`)
 
 func (c Config) writingURL() string {
@@ -94,6 +92,16 @@ func loadConfig(path string) (Config, error) {
 	if strings.TrimSpace(raw.Name) == "" {
 		return Config{}, fmt.Errorf("%s: name is required", path)
 	}
+	for _, f := range []struct{ name, val string }{
+		{"contact.github", raw.Contact.GitHub},
+		{"contact.x", raw.Contact.X},
+		{"contact.linkedin", raw.Contact.LinkedIn},
+		{"contact.email", raw.Contact.Email},
+	} {
+		if strings.TrimSpace(f.val) == "" {
+			return Config{}, fmt.Errorf("%s: %s is required", path, f.name)
+		}
+	}
 	cfg := Config{
 		BaseURL:     strings.TrimRight(raw.BaseURL, "/"),
 		Name:        raw.Name,
@@ -129,9 +137,11 @@ func loadEssays(dir string) ([]Essay, error) {
 		}
 		essays = append(essays, essay)
 	}
-	// Glob returns paths in lexical order, so a stable sort breaks ties by slug.
-	slices.SortStableFunc(essays, func(a, b Essay) int {
-		return b.Date.Compare(a.Date)
+	slices.SortFunc(essays, func(a, b Essay) int {
+		if c := b.Date.Compare(a.Date); c != 0 {
+			return c
+		}
+		return strings.Compare(a.Slug, b.Slug)
 	})
 	return essays, nil
 }

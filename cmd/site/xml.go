@@ -38,7 +38,7 @@ func writeFeed(path string, cfg Config, essays []Essay) error {
 			Link:        link,
 			GUID:        link,
 			PubDate:     e.Date.Format(time.RFC1123Z),
-			Description: string(e.BodyHTML),
+			Description: e.Description,
 		})
 	}
 	return writeXML(path, rss{
