@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"os"
 	"path/filepath"
+	"regexp"
 	"slices"
 	"strings"
 	"time"
@@ -15,22 +16,21 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Config is the site-wide content from content/site.yaml.
 // Lede, Practice, and WorkItem.Body are Markdown rendered at load time.
 type Config struct {
-	BaseURL      string        `yaml:"base_url"`
-	Name         string        `yaml:"name"`
-	Description  string        `yaml:"description"`
-	Lede         template.HTML `yaml:"lede"`
-	Practice     template.HTML `yaml:"practice"`
-	SelectedWork []WorkItem    `yaml:"selected_work"`
-	Contact      Contact       `yaml:"contact"`
+	BaseURL      string
+	Name         string
+	Description  string
+	Lede         template.HTML
+	Practice     template.HTML
+	SelectedWork []WorkItem
+	Contact      Contact
 }
 
 type WorkItem struct {
-	Title string        `yaml:"title"`
-	Body  template.HTML `yaml:"body"`
-	URL   string        `yaml:"url"`
+	Title string
+	Body  template.HTML
+	URL   string
 }
 
 type Contact struct {
@@ -40,7 +40,6 @@ type Contact struct {
 	Email    string `yaml:"email"`
 }
 
-// Essay is a writing piece loaded from content/writing/<slug>.md.
 type Essay struct {
 	Slug        string
 	Title       string
@@ -48,6 +47,9 @@ type Essay struct {
 	Description string
 	BodyHTML    template.HTML
 }
+
+// slugPattern enforces lowercase kebab-case (hello-world).
+var slugPattern = regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`)
 
 func (c Config) writingURL() string {
 	return c.BaseURL + "/writing/"
@@ -86,8 +88,14 @@ func loadConfig(path string) (Config, error) {
 	if err := yaml.Unmarshal(data, &raw); err != nil {
 		return Config{}, fmt.Errorf("parse %s: %w", path, err)
 	}
+	if strings.TrimSpace(raw.BaseURL) == "" {
+		return Config{}, fmt.Errorf("%s: base_url is required", path)
+	}
+	if strings.TrimSpace(raw.Name) == "" {
+		return Config{}, fmt.Errorf("%s: name is required", path)
+	}
 	cfg := Config{
-		BaseURL:     raw.BaseURL,
+		BaseURL:     strings.TrimRight(raw.BaseURL, "/"),
 		Name:        raw.Name,
 		Description: raw.Description,
 		Lede:        markdown(raw.Lede),
@@ -104,7 +112,6 @@ func loadConfig(path string) (Config, error) {
 	return cfg, nil
 }
 
-// loadEssays reads content/writing/*.md, newest first.
 func loadEssays(dir string) ([]Essay, error) {
 	paths, err := filepath.Glob(filepath.Join(dir, "*.md"))
 	if err != nil {
@@ -129,7 +136,17 @@ func loadEssays(dir string) ([]Essay, error) {
 	return essays, nil
 }
 
+func validateSlug(slug string) error {
+	if !slugPattern.MatchString(slug) {
+		return fmt.Errorf("invalid slug %q (want lowercase kebab-case, e.g. hello-world)", slug)
+	}
+	return nil
+}
+
 func parseEssay(slug string, data []byte) (Essay, error) {
+	if err := validateSlug(slug); err != nil {
+		return Essay{}, fmt.Errorf("essay %s: %w", slug, err)
+	}
 	front, body, ok := bytes.Cut(data, []byte("\n---\n"))
 	if !ok || !bytes.HasPrefix(front, []byte("---\n")) {
 		return Essay{}, fmt.Errorf("essay %s: missing --- front matter", slug)
@@ -141,6 +158,9 @@ func parseEssay(slug string, data []byte) (Essay, error) {
 	}
 	if err := yaml.Unmarshal(front, &fm); err != nil {
 		return Essay{}, fmt.Errorf("essay %s: parse front matter: %w", slug, err)
+	}
+	if strings.TrimSpace(fm.Title) == "" {
+		return Essay{}, fmt.Errorf("essay %s: title is required", slug)
 	}
 	date, err := time.Parse("2006-01-02", fm.Date)
 	if err != nil {
@@ -159,6 +179,8 @@ func parseEssay(slug string, data []byte) (Essay, error) {
 	}, nil
 }
 
+// Markdown stays in goldmark's default safe mode (no html.WithUnsafe):
+// raw HTML and javascript: URLs are stripped before we mark the result as template.HTML.
 var md = goldmark.New(goldmark.WithExtensions(extension.GFM))
 
 func markdown(src string) template.HTML {

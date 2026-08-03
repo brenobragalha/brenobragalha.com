@@ -29,18 +29,7 @@
 
   <section class="section">
     <h2>Writing</h2>
-    {{if .Essays}}
-    <ul class="writing-list">
-      {{range .Essays}}
-      <li>
-        <a href="/writing/{{.Slug}}/">{{.Title}}</a>
-        <time datetime="{{.Date.Format "2006-01-02"}}">{{.Date.Format "2 January 2006"}}</time>
-      </li>
-      {{end}}
-    </ul>
-    {{else}}
-    <p>Nothing published yet.</p>
-    {{end}}
+    {{template "writing-list" .Essays}}
     <p class="all-writing"><a href="/writing/">All writing&nbsp;→</a></p>
   </section>
 

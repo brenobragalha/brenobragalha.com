@@ -6,9 +6,9 @@ import (
 	"html/template"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
-// homeEssays is how many recent essays the home page lists.
 const homeEssays = 5
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 	fmt.Println("built site → public")
 }
 
-// build renders the site in root into a freshly created out directory.
+// build renders the site in root into out, replacing out atomically on success.
 func build(root, out string) error {
 	cfg, err := loadConfig(filepath.Join(root, "content", "site.yaml"))
 	if err != nil {
@@ -34,9 +34,35 @@ func build(root, out string) error {
 		return err
 	}
 
+	parent := filepath.Dir(out)
+	if parent == "" {
+		parent = "."
+	}
+	tmp, err := os.MkdirTemp(parent, ".site-*")
+	if err != nil {
+		return err
+	}
+	ok := false
+	defer func() {
+		if !ok {
+			_ = os.RemoveAll(tmp)
+		}
+	}()
+
+	if err := renderSite(root, tmp, cfg, essays, templates); err != nil {
+		return err
+	}
 	if err := os.RemoveAll(out); err != nil {
 		return err
 	}
+	if err := os.Rename(tmp, out); err != nil {
+		return err
+	}
+	ok = true
+	return nil
+}
+
+func renderSite(root, out string, cfg Config, essays []Essay, templates map[string]*template.Template) error {
 	// Static first, so generated pages win over any colliding path.
 	if err := os.CopyFS(out, os.DirFS(filepath.Join(root, "static"))); err != nil {
 		return fmt.Errorf("copy static: %w", err)
@@ -68,7 +94,6 @@ func build(root, out string) error {
 		{"notfound", "404.html", page{
 			Title:       "Not found · " + cfg.Name,
 			Description: "Page not found.",
-			Canonical:   cfg.BaseURL + "/404.html",
 			Config:      cfg,
 		}},
 	}
@@ -79,7 +104,11 @@ func build(root, out string) error {
 	}
 	for i := range essays {
 		essay := &essays[i]
-		if err := writePage(templates["essay"], "essay", filepath.Join(out, "writing", essay.Slug, "index.html"), page{
+		path, err := essayOutPath(out, essay.Slug)
+		if err != nil {
+			return err
+		}
+		if err := writePage(templates["essay"], "essay", path, page{
 			Title:       essay.Title + " · " + cfg.Name,
 			Description: essay.Description,
 			Canonical:   cfg.essayURL(essay.Slug),
@@ -96,6 +125,19 @@ func build(root, out string) error {
 	return writeSitemap(filepath.Join(out, "sitemap.xml"), cfg, essays)
 }
 
+func essayOutPath(out, slug string) (string, error) {
+	if err := validateSlug(slug); err != nil {
+		return "", err
+	}
+	writing := filepath.Join(out, "writing")
+	path := filepath.Join(writing, slug, "index.html")
+	rel, err := filepath.Rel(writing, filepath.Dir(path))
+	if err != nil || rel == ".." || strings.HasPrefix(rel, ".."+string(os.PathSeparator)) || filepath.IsAbs(rel) {
+		return "", fmt.Errorf("slug %q escapes writing directory", slug)
+	}
+	return path, nil
+}
+
 type page struct {
 	Title       string
 	Description string
@@ -105,7 +147,6 @@ type page struct {
 	Essay       *Essay
 }
 
-// parseTemplates pairs each page template with base.html, keyed by page name.
 func parseTemplates(dir string) (map[string]*template.Template, error) {
 	files := map[string]string{
 		"home":     "home.html",

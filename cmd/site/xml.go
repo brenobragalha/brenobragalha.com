@@ -29,7 +29,6 @@ type item struct {
 	Description string `xml:"description"`
 }
 
-// writeFeed writes an RSS 2.0 feed with absolute links and full HTML content.
 func writeFeed(path string, cfg Config, essays []Essay) error {
 	items := make([]item, 0, len(essays))
 	for _, e := range essays {

@@ -10,7 +10,7 @@ go run ./cmd/site
 go test ./...
 ```
 
-Preview:
+Output goes to `public/` (gitignored). Preview:
 
 ```bash
 go run ./cmd/site && python3 -m http.server -d public 8080
@@ -19,8 +19,10 @@ go run ./cmd/site && python3 -m http.server -d public 8080
 ## Content
 
 Site copy lives in [`content/site.yaml`](content/site.yaml). Essays are
-`content/writing/<slug>.md`; the filename is the URL slug, so `hello-world.md`
-is published at `/writing/hello-world/`.
+`content/writing/<slug>.md`. The filename is the URL slug and must be lowercase
+kebab-case (`hello-world.md` → `/writing/hello-world/`). Front matter needs
+`title` and `date` (`YYYY-MM-DD`); `description` is optional and falls back to
+the title.
 
 ```markdown
 ---
