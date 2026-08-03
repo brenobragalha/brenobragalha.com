@@ -39,12 +39,14 @@
 }
 
 :root {
-  --bg: #F6F5F2;
-  --text: #1C1917;
-  --text-muted: #57534E;
-  --link: #1D4ED8;
-  --link-hover: #1E3A8A;
-  --rule: #E7E5E4;
+  --bg: #F0F1EF;
+  --text: #121614;
+  --text-muted: #3A423E;
+  --link: #0A4E3C;
+  --link-hover: #073528;
+  --accent: #6E2E0E;
+  --rule: #D2D6D2;
+  --code-bg: #E6E9E6;
   --measure: 38rem;
   --pad: clamp(1.25rem, 4vw, 2rem);
   --serif: "Source Serif 4", "Times New Roman", Times, serif;
@@ -247,7 +249,7 @@ a:focus-visible {
   overflow-x: auto;
   padding: 0.9rem 1rem;
   border: 1px solid var(--rule);
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--code-bg);
 }
 
 .essay-body blockquote {
